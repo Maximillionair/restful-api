@@ -2,6 +2,12 @@
 
 This is a RESTful API service built with Node.js, Express, and MongoDB for the Firetimers assignment.
 
+# Passwords
+The users on the different VMs have sadly not been set up with keys.
+but your user is : superpadde . password : Passord!
+(jeg vet det ikke er smart å legge det her men jeg har dårlig tid og må levere, beklager).
+
+
 ## Project Structure
 
 ```
@@ -51,7 +57,7 @@ The service runs on three virtual machines:
 2. Create .env file with the following variables:
    ```
    PORT=80
-   MONGODB_URI=mongodb://10.12.202:27017/restful-api
+   MONGODB_URI=mongodb://10.12.10.202:27017/restful-api
    ```
 
 3. Start the server:
@@ -65,9 +71,3 @@ The API logs all requests to `/var/logs/api.log` in the format:
 ```
 dd.mm.yyyy - /url
 ```
-
-## Security
-
-- MongoDB is only accessible from the API server
-- NFS exports are restricted to the API server
-- SSH access is limited to the API server 
