@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const winston = require('winston');
 const path = require('path');
+const fs = require('fs');
 const itemsRouter = require('./routes/items');
 require('dotenv').config();
 
@@ -13,6 +14,13 @@ const PORT = process.env.PORT || 80;
 app.use(cors());
 app.use(express.json());
 
+// Ensure log directory exists
+const logDir = '/var/logs';
+if (!fs.existsSync(logDir)) {
+  console.error(`Log directory ${logDir} does not exist. Please ensure NFS mount is properly configured.`);
+  process.exit(1);
+}
+
 // Logger configuration
 const logger = winston.createLogger({
   level: 'info',
@@ -22,7 +30,7 @@ const logger = winston.createLogger({
   ),
   transports: [
     new winston.transports.File({ 
-      filename: '/var/logs/api.log',
+      filename: path.join(logDir, 'api.log'),
       format: winston.format.printf(({ timestamp, level, message }) => {
         const date = new Date(timestamp);
         const formattedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear()}`;
@@ -47,7 +55,7 @@ app.get('/status', (req, res) => {
 app.use('/items', itemsRouter);
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://10.12.202:27017/restful-api', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://10.12.10.202:27017/restful-api', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
