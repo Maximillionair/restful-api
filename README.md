@@ -29,15 +29,15 @@ restful-api/
 
 The service runs on three virtual machines:
 
-1. API Server (tentamen.[alias].ikt-fag.no:10.12.[pool].201)
+1. API Server (tentamen.gerty.ikt-fag.no:10.12.10.201)
    - Runs on port 80
    - Mounts /var/docs and /var/logs from the document server
 
-2. Database Server (mongodb.[alias].ikt-fag.no:10.12.[pool].202)
+2. Database Server (mongodb.gerty.ikt-fag.no:10.12.10.202)
    - Runs MongoDB
    - Only accessible from the API server
 
-3. Document Server (docs.[alias].ikt-fag.no:10.12.[pool].203)
+3. Document Server (docs.gerty.ikt-fag.no:10.12.10.203)
    - Stores documents and logs
    - Exports /var/docs and /var/logs via NFS
 
